@@ -1,0 +1,35 @@
+
+input{
+	width: 70px;
+	height: 70px;
+}
+button{
+	width: 200px;
+	height: 40px;
+}
+.black{
+	color: black;
+}
+ .purple{
+ 	color: purple;
+} 
+ .green{
+ 	color: green;
+
+ }
+ .orange{
+ 	color: orange;
+
+ }
+ .red{
+ 	color: red;
+
+ }
+ .yellow{
+ 	color:yellow;
+
+ }
+ .blue{
+ 	color: blue;
+
+}

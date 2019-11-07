@@ -60,8 +60,12 @@ function each(coll, f) {
   
   function wordLengths(str) {
       // TODO: your code here 
+      var arr = str.split(" ");
+      return map(arr,function(element, i){
+      	return element.length
+      })
   }
-  
+  //i use split(" ") to cut the string by words then i iterate over the arr using map and return new string with words length
   //=============================================================================
   /*                                  Q2                                    */
   //=============================================================================
@@ -73,7 +77,13 @@ function each(coll, f) {
   
   function countOccurrences(string, character) {
       // your code is here
+      var arr = string.split("");
+      return filter(arr, function(element, i){
+      		 return element === character
+      }).length
   }
+  // i use filter to  iterate over the arr and then i filter only the element that
+  // are equal to character then i use length yo get the length of the returned aray
   
   //=============================================================================
   /*                                  Q3                                    */
@@ -85,8 +95,13 @@ function each(coll, f) {
   
   function wordsLongerThanThree(str) {
       // TODO: your code here 
+      var arr = str.split(" ")
+      return filter(arr ,function(element, i){
+      	return element.length > 3;
+      })
   }
-  
+  // isplit the str into array of word then i iterate over it using filter to filter only the element with length larger
+//than 3  
   //=============================================================================
   /*                                  Q4                                        */
   //=============================================================================
@@ -99,7 +114,13 @@ function each(coll, f) {
   //repeatString('dog', 3); // => 'dog' + 'dog' + 'dog' => 'dogdogdog'
   
   function repeatString(str, count) { 
-   // TODO: your code here 
+   // TODO: your code here .
+   		if(count === 0){
+   		return "";
+   		}
+   		return str + repeatString(str,count-1)
+
+
   } 
    
   
@@ -129,7 +150,37 @@ function each(coll, f) {
   // pizza.eatSlice();
   
   // Write your code here .....
-  
+  /*using closure my makePizza function have some functionaliy the first function take string as input and push its to or empty array in the property
+	then display ingrediant will show you the ingredient separetad by commas
+	then bake pizza that give your piza description is ready and after this eat slice that check condition if its true will decrease by 1 
+  */
+  function makePizza(crust, size , slices){
+  	var piz = {};
+  	piz.crust = crust;
+  	piz.size = size;
+  	piz.slices = slices;
+  	piz.ingredients = [];
+  	return {
+  		addIngredients : function(str){
+  			piz.ingredients.push(str)
+  		},
+  		displayIngredaints : function(){
+  			return "the ingredients are : "+piz.ingredients.join(",")
+  		},
+  		bakePizza : function(){
+  			setTimeout(function(){
+  				console.log( "Your "+piz.crust+" "+piz.size+" "+piz.slices+" slice is done")
+  			},2000)
+  		},
+  		eatSlice : function(){
+  			if(piz.slices > 0 ){
+  				return piz.slices -= 1 ;
+  			}
+  			return "your piza is done"
+  		}
+  	}
+  }
+
   //=============================================================================
   /*                                  Q6                                      */
   //=============================================================================
@@ -155,7 +206,32 @@ function each(coll, f) {
   // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
   
   // Write your code here .....
-  
+  /*
+	i creat a class readinglist that have some property and methods that represent this class 
+  */
+  function ReadingList(){
+  	book = {};
+  	book.read = 0;
+  	book.unRead = 0;
+  	book.toRead = [];
+  	book.currentRead = "";
+  	book.readBooks = [];
+		book.addBook = addBook;
+		book.finishCurrentBook = finishCurrentBook ;
+  	return book;
+  }
+  var addBook = function(bookName){
+  	this.toRead.push(bookName);
+  	this.unRead+=1
+  }
+  var finishCurrentBook = function(){
+  	this.readBooks.push(this.currentRead);
+  	this.read += 1;
+  	this.currentRead = this.toRead[0];
+  	if(this.unRead - 1 >= 0){
+  	this.unRead -= 1; 
+  	}
+  }
   //=============================================================================
   /*                                  Q7                                       */
   //=============================================================================
@@ -175,7 +251,38 @@ function each(coll, f) {
   //  safe('money','small') => "watch gold-bar money"
   
   // Write your code here .....
+  /*
+		my function make safe have balance that represent the init v parametre and storage to store the items name each
+		 time one of the condtion is true
+
+  */
+  function makeSafe(init){
+  	var balance = init;
+  	var storage = [];
+  	 function addItem(item, size){
+  		var pound = 0 ;
+  		if(size === "big"){
+  			pound = 3 ;
+  		}
+  		else if(size === "medium"){
+  			pound = 2;
+  		}
+  		else if(size === "small"){
+  			pound = 1;
+  		}
+  		if(balance - pound < 0){
+  			return "can't fit"
+  		}
+  		console.log(balance -= pound)
+  		storage.push(item)
+  		if(balance === 0){
+  			return storage.join(" ")
+  		}
+
+  	}
   
+  	return addItem
+  }
   //=============================================================================
   /*                                  Q8                                       */
   //=============================================================================
@@ -216,10 +323,25 @@ function each(coll, f) {
   //================================================================================
   // Theoretical questions.
   // 1- In your own words,Why do we use Closures ?
-  
+  /* cloure is the implimentation of callbacks function inside  another function to 
+  avoid being in the risk of global variables bug 
+  its like creating another local scoop that is higher that your function scoop*/
   // 2- In OOP, what does "this" refer to ?
+  /*
+  this refer to the previous object it can be refered to previous object or window object or any think that is one step higher that her
+  */
   
   // 3- What is jQuery?
+  /*
+	jquery is java script labrari that we use to manipulate the DOM  by making changes on it 
+	or delete it add classes and many other stuff 
+	but what make jquery likebale is his flexibility so instead of writing one line of code yo just write $("your selector")
+  */
   
   // 4- what is the diffrence between Closure's methods and The OOP's methods?
+  /*
+  the difference between oop and closure is that closure creat another function when you creat and instance of your object
+  and thats not good for the memory it also deal with functions and nested function but  the OOP (object orianted programming )
+  creat a class  in general taht have property and methods and each tme you creat instance  that will just impliment this method with specifiq param not creating  other methods
+  */
   
